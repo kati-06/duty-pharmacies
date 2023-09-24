@@ -1,5 +1,5 @@
 import axios, {AxiosHeaders} from 'axios';
-import {Pharmacy} from '../components/types/commonTypes';
+import {Pharmacy} from '../types/commonTypes';
 
 interface dataOptions {
   data: Pharmacy[];

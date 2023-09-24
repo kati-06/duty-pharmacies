@@ -1,18 +1,21 @@
 import PharmacyCard from './PharmacyCard';
 import './PharmacyTable.style.css';
 import {fetchPharmacies} from '../services/api';
-import {useEffect, useState} from 'react';
-import {Pharmacy} from './types/commonTypes';
-import {AxiosResponse} from 'axios';
+import React, {useEffect} from 'react';
+import LoadingSpinner from './LoadingSpinner';
+import {Pharmacy} from '../types/commonTypes';
 
-function PharmacyTable() {
-  const [pharmacies, setPharmacies] = useState<Pharmacy[] | null>(null);
+interface PharmacyTableProps {
+  pharmacies: Pharmacy[] | null;
+  setPharmacies: React.Dispatch<React.SetStateAction<Pharmacy[] | null>>;
+}
 
+function PharmacyTable({pharmacies, setPharmacies}: PharmacyTableProps) {
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetchPharmacies({
-          city: '',
+          city: 'ankara',
           county: '',
         });
         setPharmacies(response);
@@ -25,12 +28,17 @@ function PharmacyTable() {
     fetchData();
   }, []);
 
-  if (!pharmacies) return <></>;
+  if (!pharmacies) return <LoadingSpinner />;
   console.log(pharmacies);
   return (
-    <div className="pharmacy-table w-full">
+    <div className="pharmacy-table w-full border">
       {pharmacies?.map((pharmacy) => (
-        <PharmacyCard key={pharmacy._id} pharmacyName={pharmacy.pharmacyName} />
+        <PharmacyCard
+          key={pharmacy._id}
+          pharmacyName={pharmacy.pharmacyName}
+          city={pharmacy.city}
+          county={pharmacy.county}
+        />
       ))}
     </div>
   );

@@ -9,9 +9,11 @@ import {
 
 interface PharmacyCardProps {
   pharmacyName: string;
+  city: string;
+  county: string;
 }
 
-function PharmacyCard({pharmacyName}: PharmacyCardProps) {
+function PharmacyCard({pharmacyName, city, county}: PharmacyCardProps) {
   return (
     <div className="pharmacy-card p-5 w-full ">
       <div className="flex items-start  gap-2 mb-3">
@@ -28,7 +30,10 @@ function PharmacyCard({pharmacyName}: PharmacyCardProps) {
             className="text-gray-600 mt-1 "
             icon={faLocationDot}
           />
-          <li> Ankara - Elmadag</li>
+          <li>
+            {' '}
+            {city} - {county}
+          </li>
         </div>
         <div className="flex items-start  gap-2 mt-2">
           <FontAwesomeIcon
