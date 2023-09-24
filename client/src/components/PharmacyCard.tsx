@@ -7,7 +7,11 @@ import {
   faPhone,
 } from '@fortawesome/free-solid-svg-icons';
 
-function PharmacyCard() {
+interface PharmacyCardProps {
+  pharmacyName: string;
+}
+
+function PharmacyCard({pharmacyName}: PharmacyCardProps) {
   return (
     <div className="pharmacy-card p-5 w-full ">
       <div className="flex items-start  gap-2 mb-3">
@@ -16,7 +20,7 @@ function PharmacyCard() {
           size="xl"
           icon={faHouseMedical}
         />
-        <h1 className="text-xl font-bold">Guler Eczanesi</h1>
+        <h1 className="text-xl font-bold">{pharmacyName}</h1>
       </div>
       <ul className="flex flex-col gap-3">
         <div className="flex items-start  gap-2 mt-2">

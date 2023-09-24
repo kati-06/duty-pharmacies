@@ -3,6 +3,7 @@ dotenv.config();
 
 import express from 'express';
 import helmet from 'helmet';
+import cors from 'cors';
 
 import connectDB from './db/connect.js';
 import {updatePharmacies} from './utils/scheduler.js';
@@ -12,9 +13,10 @@ import notFoundMiddleware from './middleware/notFound.js';
 
 const app = express();
 
-// express config
+// config
 app.use(helmet());
 app.use(express.json());
+app.use(cors());
 
 // routers
 import pharmaciesRouter from './routes/pharmacies.js';
