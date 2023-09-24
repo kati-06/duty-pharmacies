@@ -35,8 +35,7 @@ import {testo} from './utils/scheduler.js';
 const startServer = async () => {
   try {
     await connectDB();
-    await testo();
-    updatePharmacies();
+    //updatePharmacies();
     app.listen(port, () => {
       console.log(`Server is listening on port ${port}`);
     });
