@@ -34,8 +34,8 @@ function Main() {
       setCountyOptions(
         counties.map((county: County) => {
           return {
-            value: county.countyName,
-            label: county.countySlug,
+            value: county.countySlug,
+            label: county.countyName,
           };
         })
       );
@@ -57,7 +57,13 @@ function Main() {
   const handleSubmitSearch = async () => {
     try {
       setIsFetcing(true);
-      fetchPharmacies({city: selectedCity, county: selectedCounty});
+      console.log(selectedCounty);
+      setPharmacies(
+        await fetchPharmacies({
+          city: selectedCity,
+          county: selectedCounty,
+        })
+      );
     } catch (error) {
       console.log(error);
     } finally {

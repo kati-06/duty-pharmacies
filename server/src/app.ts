@@ -32,7 +32,6 @@ app.use(errorHandlerMiddleware);
 app.use(notFoundMiddleware);
 
 const port = process.env.PORT || 3000;
-import {testo} from './utils/scheduler.js';
 
 const startServer = async () => {
   try {

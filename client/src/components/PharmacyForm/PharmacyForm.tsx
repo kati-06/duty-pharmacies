@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
 import Select from 'react-select';
+import './PharmacyForm.style.css';
 
 interface County {
   countyName: string;
@@ -38,8 +38,13 @@ function PharmacyForm({
           placeholder={'Tüm ilçeler'}
           noOptionsMessage={() => 'Lütfen il seçiniz'}
           onChange={handleChangeCounty}
+          isClearable={true}
         />
-        <button onClick={handleSubmit} className="bg-green-500" disabled={true}>
+        <button
+          onClick={handleSubmit}
+          className="bg-green-500"
+          disabled={disabled}
+        >
           Ara
         </button>
       </div>
