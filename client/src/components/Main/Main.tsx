@@ -50,7 +50,6 @@ function Main() {
   const handleSubmitSearch = async () => {
     try {
       setIsFetcing(true);
-      console.log(selectedCounty);
       setPharmacies(
         await fetchPharmacies({
           city: selectedCity,

@@ -16,9 +16,6 @@ export const fetchPharmacies = async ({
   city: string;
   county: string;
 }) => {
-  console.log(
-    `${process.env.REACT_APP_PHARMACY_API}/pharmacies?city=${city}&county=${county}`
-  );
   const {data}: dataOptions = await axios.get(
     `${process.env.REACT_APP_PHARMACY_API}/pharmacies?city=${city}&county=${county}`
   );

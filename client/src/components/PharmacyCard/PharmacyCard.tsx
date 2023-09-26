@@ -15,14 +15,16 @@ interface PharmacyCardProps {
 
 function PharmacyCard({pharmacyName, city, county}: PharmacyCardProps) {
   return (
-    <div className="pharmacy-card p-5 w-full ">
+    <div className="pharmacy-card p-5 w-full">
       <div className="flex items-start  gap-2 mb-3">
         <FontAwesomeIcon
           className="text-gray-600 "
           size="xl"
           icon={faHouseMedical}
         />
-        <h1 className="text-xl font-bold">{pharmacyName}</h1>
+        <h1 className="text-xl font-bold w-full overflow-hidden whitespace-nowrap text-ellipsis">
+          {pharmacyName}
+        </h1>
       </div>
       <ul className="flex flex-col gap-3">
         <div className="flex items-start  gap-2 mt-2">

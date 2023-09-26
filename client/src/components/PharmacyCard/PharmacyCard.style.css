@@ -1,6 +1,7 @@
-/*.pharmacy-card:nth-child(odd) {
-  @apply bg-gray-100;
-}*/
+.pharmacy-card {
+  /*height: 300px;
+  overflow: hi;*/
+}
 
 @media (max-width: 500px) {
   .label-container {
@@ -8,11 +9,5 @@
   }
   .content-container {
     @apply w-9/12;
-  }
-
-  .pharmachy-container {
-  }
-
-  .open-map-container {
   }
 }
