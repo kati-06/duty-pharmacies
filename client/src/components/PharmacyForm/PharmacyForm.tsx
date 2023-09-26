@@ -7,11 +7,11 @@ interface County {
 }
 
 interface PharmacyFormProps {
-  cityOptions: object[];
-  countyOptions: object[];
+  cityOptions: {label: string; value: string}[];
+  countyOptions: {label: string; value: string}[];
   handleChangeCity(selectedOption: any): void;
   handleChangeCounty(selectedOption: any): void;
-  //setSelectedCity: React.Dispatch<React.SetStateAction<string>>;
+  selectedCounty: string;
   handleSubmit(): void;
   disabled: boolean;
 }
@@ -22,7 +22,7 @@ function PharmacyForm({
   handleSubmit,
   handleChangeCity,
   handleChangeCounty,
-  //setSelectedCity,
+  selectedCounty,
   disabled,
 }: PharmacyFormProps) {
   return (
@@ -39,6 +39,11 @@ function PharmacyForm({
           noOptionsMessage={() => 'Lütfen il seçiniz'}
           onChange={handleChangeCounty}
           isClearable={true}
+          value={
+            selectedCounty
+              ? {value: selectedCounty, label: selectedCounty}
+              : null
+          }
         />
         <button
           onClick={handleSubmit}

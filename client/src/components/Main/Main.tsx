@@ -24,7 +24,8 @@ function Main() {
   });
 
   const handleChangeCity = (selectedOption: any) => {
-    setSelectedCity(selectedOption?.value || '');
+    setSelectedCity(selectedOption?.label || '');
+    setSelectedCounty('');
 
     const countiesData: any = data;
 
@@ -34,7 +35,7 @@ function Main() {
       setCountyOptions(
         counties.map((county: County) => {
           return {
-            value: county.countySlug,
+            value: county.countyName,
             label: county.countyName,
           };
         })
@@ -45,14 +46,6 @@ function Main() {
   const handleChangeCounty = (selectedOption: any) => {
     setSelectedCounty(selectedOption?.value || '');
   };
-
-  //useEffect(() => {
-  //  const countiesData: any = data;
-
-  //  if (selectedCity) {
-  //    setCounties(countiesData[selectedCity].counties);
-  //  }
-  //}, [selectedCity]);
 
   const handleSubmitSearch = async () => {
     try {
@@ -78,6 +71,7 @@ function Main() {
         countyOptions={countyOptions}
         handleChangeCity={handleChangeCity}
         handleChangeCounty={handleChangeCounty}
+        selectedCounty={selectedCounty}
         handleSubmit={handleSubmitSearch}
         disabled={isFetcing}
       />
