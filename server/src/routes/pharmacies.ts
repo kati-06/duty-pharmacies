@@ -1,8 +1,9 @@
 import express from 'express';
-import {getAllPharmacies} from '../controllers/pharmacies.js';
+import {getAllPharmacies, getPharmacy} from '../controllers/pharmacies.js';
 
 const router = express.Router();
 
-router.route('/').get(getAllPharmacies);
+router.get('/', getAllPharmacies);
+router.get('/:id', getPharmacy);
 
 export default router;

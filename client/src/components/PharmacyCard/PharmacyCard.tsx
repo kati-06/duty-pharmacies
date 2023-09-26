@@ -6,6 +6,7 @@ import {
   faMapLocationDot,
   faPhone,
 } from '@fortawesome/free-solid-svg-icons';
+import {fetchPharmacy} from '../../services/api';
 
 interface PharmacyCardProps {
   pharmacyName: string;
@@ -13,6 +14,7 @@ interface PharmacyCardProps {
   county: string;
   address: string;
   phone1: string;
+  pharmacyId: number;
 }
 
 function PharmacyCard({
@@ -21,8 +23,18 @@ function PharmacyCard({
   county,
   address,
   phone1,
+  pharmacyId,
 }: PharmacyCardProps) {
-  const handleClickShowOnMap = () => {};
+  const handleClickShowOnMap = async () => {
+    const {data} = await fetchPharmacy(pharmacyId.toString());
+    const {location} = data.geometry;
+    window.open(
+      `https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}&query_place_id=${data.place_id}`
+    );
+    console.log(data);
+    console.log(data.pharmayName);
+    console.log(data?.name, data?.formatted_address, data?.geometry?.location);
+  };
 
   return (
     <div className="pharmacy-card p-5 w-full ">

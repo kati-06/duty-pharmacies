@@ -19,6 +19,26 @@ function Main() {
   const [selectedCounty, setSelectedCounty] = useState<string>('');
   const [isFetcing, setIsFetcing] = useState(false);
 
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success, error);
+    } else {
+      console.log('Geolocation not supported');
+    }
+
+    function success(position: any) {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+      // const url = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}&query_place_id=${place_id}`;
+      // window.open(url, '_blank');
+    }
+
+    function error() {
+      console.log('Unable to retrieve your location');
+    }
+  }, []);
+
   const cityOptions = cities.map((city) => {
     return {value: city.citySlug, label: city.cityName};
   });

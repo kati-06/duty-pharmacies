@@ -24,6 +24,13 @@ code {
 
 .btn {
   @apply rounded-sm shadow-md text-white font-extrabold;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  @apply opacity-80;
+  /*transform: translate(0%, -5%);*/
+  /*transform: scale(1.03);*/
 }
 
 .btn:disabled {

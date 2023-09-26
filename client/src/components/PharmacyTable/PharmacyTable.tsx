@@ -40,6 +40,7 @@ function PharmacyTable({pharmacies, setPharmacies}: PharmacyTableProps) {
           county={pharmacy.county}
           address={pharmacy.address}
           phone1={pharmacy.phone}
+          pharmacyId={pharmacy._id}
         />
       ))}
     </div>

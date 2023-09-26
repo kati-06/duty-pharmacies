@@ -22,3 +22,9 @@ export const fetchPharmacies = async ({
 
   return data;
 };
+
+export const fetchPharmacy = async (pharmacyId: string) => {
+  return await axios.get(
+    `${process.env.REACT_APP_PHARMACY_API}/pharmacies/${pharmacyId}`
+  );
+};
