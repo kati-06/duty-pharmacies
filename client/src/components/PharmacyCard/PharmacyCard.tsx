@@ -26,14 +26,34 @@ function PharmacyCard({
   pharmacyId,
 }: PharmacyCardProps) {
   const handleClickShowOnMap = async () => {
-    const {data} = await fetchPharmacy(pharmacyId.toString());
-    const {location} = data.geometry;
-    window.open(
-      `https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}&query_place_id=${data.place_id}`
-    );
-    console.log(data);
-    console.log(data.pharmayName);
-    console.log(data?.name, data?.formatted_address, data?.geometry?.location);
+    const {data}: any = await fetchPharmacy(pharmacyId.toString());
+
+    // found in google
+
+    if (data.isFound) {
+      const pharmacy = data.data;
+
+      const {location} = pharmacy.geometry;
+      //window.open(
+      //  `https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}&query_place_id=${pharmacy.place_id}`,
+      //  '_blank'
+      //);
+
+      window.open(`comgooglemaps://?q=${pharmacy.formatted_address}`);
+      //console.log(data);
+      //console.log(data.pharmayName);
+      //console.log(
+      //  data?.name,
+      //  data?.formatted_address,
+      //  data?.geometry?.location
+      //);
+    } else {
+      const pharmacy = data.data;
+      window.open(
+        `https://www.google.com/maps/search/?api=1&query=${pharmacy.latitude},${pharmacy.longitude}`,
+        '_blank'
+      );
+    }
   };
 
   return (

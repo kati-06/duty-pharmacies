@@ -70,14 +70,14 @@ function Main() {
   const handleSubmitSearch = async () => {
     try {
       setIsFetcing(true);
-      setPharmacies(
-        await fetchPharmacies({
-          city: selectedCity,
-          county: selectedCounty,
-        })
-      );
+      const fetchedPharmacies = await fetchPharmacies({
+        city: selectedCity,
+        county: selectedCounty,
+      });
+      setPharmacies(fetchedPharmacies);
     } catch (error) {
       console.log(error);
+      window.alert(error);
     } finally {
       setIsFetcing(false);
     }

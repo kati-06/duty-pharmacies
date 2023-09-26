@@ -40,6 +40,9 @@ export const getPharmacy = async (
   const places: any = await axios.get(url);
 
   const closestPlace = places.data.results[0];
-
-  res.status(httpStatus.OK).json(closestPlace);
+  if (closestPlace) {
+    res.status(httpStatus.OK).json({data: closestPlace, isFound: true});
+  } else {
+    res.status(httpStatus.OK).json({data: pharmacy, isFound: false});
+  }
 };
