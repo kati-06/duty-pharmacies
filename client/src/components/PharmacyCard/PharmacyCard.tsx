@@ -11,48 +11,60 @@ interface PharmacyCardProps {
   pharmacyName: string;
   city: string;
   county: string;
+  address: string;
+  phone1: string;
 }
 
-function PharmacyCard({pharmacyName, city, county}: PharmacyCardProps) {
+function PharmacyCard({
+  pharmacyName,
+  city,
+  county,
+  address,
+  phone1,
+}: PharmacyCardProps) {
+  const handleClickShowOnMap = () => {};
+
   return (
-    <div className="pharmacy-card p-5 w-full">
-      <div className="flex items-start  gap-2 mb-3">
+    <div className="pharmacy-card p-5 w-full ">
+      <div className="flex items-start gap-2 mb-3">
         <FontAwesomeIcon
           className="text-gray-600 "
           size="xl"
           icon={faHouseMedical}
         />
-        <h1 className="text-xl font-bold w-full overflow-hidden whitespace-nowrap text-ellipsis">
+        <h1 className="text-xl font-bold w-fulloverflow-hidden whitespace-nowrap text-ellipsis">
           {pharmacyName}
         </h1>
       </div>
-      <ul className="flex flex-col gap-3">
-        <div className="flex items-start  gap-2 mt-2">
+      <ul className="flex flex-col gap-3  h-full">
+        <div className="flex items-start gap-2 mt-2">
           <FontAwesomeIcon
             className="text-gray-600 mt-1 "
             icon={faLocationDot}
           />
           <li>
-            {' '}
             {city} - {county}
           </li>
         </div>
-        <div className="flex items-start  gap-2 mt-2">
+        <div className="flex items-start gap-2 mt-2">
           <FontAwesomeIcon
             className="text-gray-600 mt-1 "
             icon={faMapLocationDot}
           />
-          <li>
-            Aşağı Öveçler Mahallesi, Kabil Caddesi No:28/A Çankaya / Ankara
-          </li>
+          <li className="address text-ellipsis overflow-hidden">{address}</li>
         </div>
         <div className="flex items-start  gap-2 mt-2">
           <FontAwesomeIcon className="text-gray-600 mt-1 " icon={faPhone} />
-          <li>0(312)287-32-26</li>
+          <li>{phone1}</li>
         </div>
 
         <li>
-          <button className="bg-blue-300 w-full p-2">Haritada Goster</button>
+          <button
+            onClick={handleClickShowOnMap}
+            className="btn bg-blue w-full p-2 "
+          >
+            Haritada Goster
+          </button>
         </li>
       </ul>
     </div>
@@ -80,29 +92,3 @@ const Row = ({label, content}: RowProps) => {
     </div>
   );
 };
-
-// <div className="flex">
-//        <div className="col-3">
-//          <label className="font-bold" htmlFor="">
-//            Eczane:
-//          </label>
-//        </div>
-//        <div className="col-9">
-//          <p>Ankara Eczanesi</p>
-//        </div>
-//      </div>
-//      <div className="flex gap-3">
-//        <label className="font-bold" htmlFor="">
-//          Adres:
-//        </label>
-//        <p>
-//          Yıldırım Mahallesi, Dr.Neslihan Özenli Caddesi, No:26/A Akyurt /
-//          Ankara » Akyurt Devlet Hastanesi karşısı
-//        </p>
-//      </div>
-//      <div className="flex gap-3">
-//        <label className="font-bold" htmlFor="">
-//          Telefon:
-//        </label>
-//        <p>0 (312) 844-00-14</p>
-//      </div>

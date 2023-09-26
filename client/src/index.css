@@ -21,3 +21,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.btn {
+  @apply rounded-sm shadow-md text-white font-extrabold;
+}
+
+.btn:disabled {
+  @apply cursor-not-allowed focus:outline-none disabled:opacity-50;
+}

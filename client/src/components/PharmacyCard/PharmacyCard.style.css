@@ -1,6 +1,7 @@
 .pharmacy-card {
   /*height: 300px;
   overflow: hi;*/
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.08);
 }
 
 @media (max-width: 500px) {
@@ -9,5 +10,11 @@
   }
   .content-container {
     @apply w-9/12;
+  }
+}
+
+@media (width > 600px) {
+  .pharmacy-card .address {
+    height: 50px;
   }
 }

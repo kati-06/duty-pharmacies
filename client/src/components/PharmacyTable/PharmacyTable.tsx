@@ -31,13 +31,15 @@ function PharmacyTable({pharmacies, setPharmacies}: PharmacyTableProps) {
   if (!pharmacies) return <h1>Lutfen bir il secin</h1>;
 
   return (
-    <div className="pharmacy-table w-full border">
+    <div className="pharmacy-table w-full border p-5">
       {pharmacies?.map((pharmacy) => (
         <PharmacyCard
           key={pharmacy._id}
           pharmacyName={pharmacy.pharmacyName}
           city={pharmacy.city}
           county={pharmacy.county}
+          address={pharmacy.address}
+          phone1={pharmacy.phone}
         />
       ))}
     </div>

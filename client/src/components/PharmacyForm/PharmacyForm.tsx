@@ -27,7 +27,7 @@ function PharmacyForm({
 }: PharmacyFormProps) {
   return (
     <div className="border-x">
-      <div className="grid grid-cols-3 gap-10 px-3 py-5">
+      <div className="grid grid-cols-3 gap-5 px-3 py-5">
         <Select
           options={cityOptions}
           placeholder={'İl seç'}
@@ -44,10 +44,24 @@ function PharmacyForm({
               ? {value: selectedCounty, label: selectedCounty}
               : null
           }
+          styles={{
+            control: (provided) => ({
+              ...provided,
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+            }),
+            placeholder: (provided) => ({
+              ...provided,
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+            }),
+          }}
         />
         <button
           onClick={handleSubmit}
-          className="bg-green-500"
+          className="btn bg-green"
           disabled={disabled}
         >
           Ara
