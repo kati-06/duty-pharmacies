@@ -87,7 +87,9 @@ function PharmacyCard({
         </div>
         <div className="flex items-start  gap-2 mt-2">
           <FontAwesomeIcon className="text-gray-600 mt-1 " icon={faPhone} />
-          <li>{phone1}</li>
+          <a href={`tel:${phone1}`} className="text-sky-600 underline">
+            {phone1}
+          </a>
         </div>
 
         <li>
