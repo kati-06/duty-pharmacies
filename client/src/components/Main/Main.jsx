@@ -1,24 +1,19 @@
 import {useEffect, useState} from 'react';
 import PharmacyTable from '../PharmacyTable/PharmacyTable';
-import {Pharmacy} from '../../types/commonTypes';
 import cities from '../../data/cities';
 import data from '../../data/data.json';
 import {fetchPharmacies} from '../../services/api';
 import './Main.style.css';
 import PharmacyForm from '../PharmacyForm/PharmacyForm';
 
-interface County {
-  countyName: string;
-  countySlug: string;
-}
-
 function Main() {
-  const [pharmacies, setPharmacies] = useState<Pharmacy[] | null>(null);
+  const [pharmacies, setPharmacies] = useState(null);
   const [countyOptions, setCountyOptions] = useState([]);
-  const [selectedCity, setSelectedCity] = useState<string>('');
-  const [selectedCounty, setSelectedCounty] = useState<string>('');
+  const [selectedCity, setSelectedCity] = useState('');
+  const [selectedCounty, setSelectedCounty] = useState('');
   const [isFetcing, setIsFetcing] = useState(false);
 
+  // get user location - IGNORE IT FOR NOW
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(success, error);
@@ -26,7 +21,7 @@ function Main() {
       console.log('Geolocation not supported');
     }
 
-    function success(position: any) {
+    function success(position) {
       const latitude = position.coords.latitude;
       const longitude = position.coords.longitude;
       console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
@@ -39,21 +34,22 @@ function Main() {
     }
   }, []);
 
+  // get cities from json and map for react-select component
   const cityOptions = cities.map((city) => {
     return {value: city.citySlug, label: city.cityName};
   });
 
-  const handleChangeCity = (selectedOption: any) => {
+  const handleChangeCity = (selectedOption) => {
     setSelectedCity(selectedOption?.label || '');
     setSelectedCounty('');
 
-    const countiesData: any = data;
+    const countiesData = data;
 
     if (selectedOption?.value) {
       const counties = countiesData[selectedOption?.value].counties;
 
       setCountyOptions(
-        counties.map((county: County) => {
+        counties.map((county) => {
           return {
             value: county.countyName,
             label: county.countyName,
@@ -63,7 +59,7 @@ function Main() {
     }
   };
 
-  const handleChangeCounty = (selectedOption: any) => {
+  const handleChangeCounty = (selectedOption) => {
     setSelectedCounty(selectedOption?.value || '');
   };
 
@@ -77,14 +73,13 @@ function Main() {
       setPharmacies(fetchedPharmacies);
     } catch (error) {
       console.log(error);
-      window.alert(error);
     } finally {
       setIsFetcing(false);
     }
   };
 
   return (
-    <div>
+    <main>
       <PharmacyForm
         cityOptions={cityOptions}
         countyOptions={countyOptions}
@@ -95,7 +90,7 @@ function Main() {
         disabled={isFetcing}
       />
       <PharmacyTable pharmacies={pharmacies} setPharmacies={setPharmacies} />
-    </div>
+    </main>
   );
 }
 

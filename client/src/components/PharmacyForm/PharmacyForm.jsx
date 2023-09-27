@@ -1,21 +1,6 @@
 import Select from 'react-select';
 import './PharmacyForm.style.css';
 
-interface County {
-  countyName: string;
-  countySlug: string;
-}
-
-interface PharmacyFormProps {
-  cityOptions: {label: string; value: string}[];
-  countyOptions: {label: string; value: string}[];
-  handleChangeCity(selectedOption: any): void;
-  handleChangeCounty(selectedOption: any): void;
-  selectedCounty: string;
-  handleSubmit(): void;
-  disabled: boolean;
-}
-
 function PharmacyForm({
   cityOptions,
   countyOptions,
@@ -24,7 +9,7 @@ function PharmacyForm({
   handleChangeCounty,
   selectedCounty,
   disabled,
-}: PharmacyFormProps) {
+}) {
   return (
     <div className="border-x">
       <div className="grid grid-cols-3 gap-5 px-3 py-5">

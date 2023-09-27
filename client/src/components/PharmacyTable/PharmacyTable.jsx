@@ -3,14 +3,9 @@ import PharmacyCard from '../PharmacyCard/PharmacyCard';
 import './PharmacyTable.style.css';
 import {fetchPharmacies} from '../../services/api';
 import LoadingSpinner from '../LoadingSpinner';
-import {Pharmacy} from '../../types/commonTypes';
 
-interface PharmacyTableProps {
-  pharmacies: Pharmacy[] | null;
-  setPharmacies: React.Dispatch<React.SetStateAction<Pharmacy[] | null>>;
-}
-
-function PharmacyTable({pharmacies, setPharmacies}: PharmacyTableProps) {
+function PharmacyTable({pharmacies, setPharmacies}) {
+  // IGNORE IT FOR NOW
   //useEffect(() => {
   //  const fetchData = async () => {
   //    try {

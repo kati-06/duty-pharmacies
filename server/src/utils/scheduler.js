@@ -1,19 +1,6 @@
 import schedule from 'node-schedule';
 import Pharmacy from '../models/Pharmacy.js';
 import axios from 'axios';
-//import {Pharmacy} from '../types/commonTypes.js';
-
-export const testo = async () => {
-  //try {
-  //  const {data} = await axios.get(`${process.env.PHARMACY_API}/getAll`, {
-  //    headers: {
-  //      Authorization: `Bearer ${process.env.PHARMACY_API_TOKEN}`,
-  //    },
-  //  });
-  //} catch (error) {
-  //  console.log(error);
-  //}
-};
 
 // update pharmacies
 export const updatePharmacies = () => {
@@ -27,7 +14,7 @@ export const updatePharmacies = () => {
 
       const {data: pharmacies, rowCount} = data;
 
-      const newPharmacies = pharmacies.map((pharmacy: any) => ({
+      const newPharmacies = pharmacies.map((pharmacy) => ({
         pharmacyName: pharmacy.EczaneAdi,
         address: pharmacy.Adresi,
         district: pharmacy.Semt,

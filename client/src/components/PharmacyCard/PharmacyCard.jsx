@@ -8,15 +8,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {fetchPharmacy} from '../../services/api';
 
-interface PharmacyCardProps {
-  pharmacyName: string;
-  city: string;
-  county: string;
-  address: string;
-  phone1: string;
-  pharmacyId: number;
-}
-
 function PharmacyCard({
   pharmacyName,
   city,
@@ -24,9 +15,9 @@ function PharmacyCard({
   address,
   phone1,
   pharmacyId,
-}: PharmacyCardProps) {
+}) {
   const handleClickShowOnMap = async () => {
-    const {data}: any = await fetchPharmacy(pharmacyId.toString());
+    const {data} = await fetchPharmacy(pharmacyId.toString());
 
     // found in google
 
@@ -34,12 +25,13 @@ function PharmacyCard({
       const pharmacy = data.data;
 
       const {location} = pharmacy.geometry;
-      //window.open(
-      //  `https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}&query_place_id=${pharmacy.place_id}`,
-      //  '_blank'
-      //);
+      window.open(
+        `https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}&query_place_id=${pharmacy.place_id}`,
+        '_blank'
+      );
 
-      window.open(`comgooglemaps://?q=${pharmacy.formatted_address}`);
+      //window.open(`comgooglemaps://?q=${pharmacy.formatted_address}`);
+
       //console.log(data);
       //console.log(data.pharmayName);
       //console.log(
@@ -68,7 +60,7 @@ function PharmacyCard({
           {pharmacyName}
         </h1>
       </div>
-      <ul className="flex flex-col gap-3  h-full">
+      <ul className="flex flex-col gap-3 h-full">
         <div className="flex items-start gap-2 mt-2">
           <FontAwesomeIcon
             className="text-gray-600 mt-1 "
@@ -106,23 +98,3 @@ function PharmacyCard({
 }
 
 export default PharmacyCard;
-
-interface RowProps {
-  label: string;
-  content: string;
-}
-
-const Row = ({label, content}: RowProps) => {
-  return (
-    <div className="flex mb-3">
-      <div className="label-container w-3/12">
-        <p>
-          <strong>{label}:</strong>
-        </p>
-      </div>
-      <div className="content-container w-9/12">
-        <p>{content}</p>
-      </div>
-    </div>
-  );
-};

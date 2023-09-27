@@ -2,8 +2,8 @@ import httpStatus from 'http-status';
 import CustomError from './customError.js';
 
 class NotFoundError extends CustomError {
-  statusCode: number;
-  constructor(message: string) {
+  statusCode;
+  constructor(message) {
     super(message);
     this.statusCode = httpStatus.NOT_FOUND;
   }
