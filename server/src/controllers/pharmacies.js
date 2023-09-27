@@ -25,6 +25,7 @@ export const getPharmacy = async (req, res, next) => {
 
   const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodedName}&radius=2000&type=pharmacy&key=${process.env.GOOGLE_PLACES_KEY}`;
 
+  // other url test to accuracy DON'T DELETE for now
   // const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodedName}&location=${pharmacy.latitude},${pharmacy.longitude}&radius=2000&type=pharmacy&key=${process.env.GOOGLE_PLACES_API}`;
 
   const places = await axios.get(url);

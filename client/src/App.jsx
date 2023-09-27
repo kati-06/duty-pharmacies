@@ -8,9 +8,11 @@ function App() {
   return (
     <div className="app h-[100vh] ">
       <Navbar />
-      <div className="max-w-[1200px]" style={{margin: '0 auto'}}>
+      <main className="max-w-[1200px]" style={{margin: '0 auto'}}>
         <Main />
-      </div>
+      </main>
+
+      {/*footer will be added*/}
     </div>
   );
 }

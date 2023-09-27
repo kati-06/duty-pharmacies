@@ -79,7 +79,7 @@ function Main() {
   };
 
   return (
-    <main>
+    <div>
       <PharmacyForm
         cityOptions={cityOptions}
         countyOptions={countyOptions}
@@ -90,7 +90,7 @@ function Main() {
         disabled={isFetcing}
       />
       <PharmacyTable pharmacies={pharmacies} setPharmacies={setPharmacies} />
-    </main>
+    </div>
   );
 }
 

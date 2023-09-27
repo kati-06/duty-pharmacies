@@ -1,5 +1,3 @@
-import React, {useEffect} from 'react';
-
 function Navbar() {
   return (
     <nav className="px-3 py-5 text-white font-bold bg-black">
