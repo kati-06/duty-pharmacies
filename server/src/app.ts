@@ -23,9 +23,8 @@ import pharmaciesRouter from './routes/pharmacies.js';
 
 // routes
 app.use('/api/v1/pharmacies', pharmaciesRouter);
-
+console.log('here');
 app.get('/api/v1', (req, res) => {
-  console.log('here');
   res.send('here');
 });
 
