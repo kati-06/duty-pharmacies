@@ -8,6 +8,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {fetchPharmacy} from '../../services/api';
 
+function isMobileDevice() {
+  return window.innerWidth <= 768; // You can adjust the breakpoint as needed
+}
+
 function PharmacyCard({
   pharmacyName,
   city,
@@ -17,36 +21,56 @@ function PharmacyCard({
   pharmacyId,
 }) {
   const handleClickShowOnMap = async () => {
-    const {data} = await fetchPharmacy(pharmacyId.toString());
-
-    // found in google
-
+    const { data } = await fetchPharmacy(pharmacyId.toString());
+  
     if (data.isFound) {
       const pharmacy = data.data;
-
-      const {location} = pharmacy.geometry;
-      window.open(
-        `https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}&query_place_id=${pharmacy.place_id}`,
-        '_blank'
-      );
-
-      //window.open(`comgooglemaps://?q=${pharmacy.formatted_address}`);
-
-      //console.log(data);
-      //console.log(data.pharmayName);
-      //console.log(
-      //  data?.name,
-      //  data?.formatted_address,
-      //  data?.geometry?.location
-      //);
+      const { location } = pharmacy.geometry;
+  
+      if (isMobileDevice()) {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  
+        if (isIOS) {
+          // Open Apple Maps on iOS
+          const mapUri = `maps://maps.apple.com/?q=${location.lat},${location.lng}`;
+          window.location.href = mapUri;
+        } else {
+          // Open Google Maps on Android
+          const mapUri = `geo:${location.lat},${location.lng}`;
+          window.location.href = mapUri;
+        }
+      } else {
+        // Open Google Maps in a new browser tab on desktop
+        window.open(
+          `https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}&query_place_id=${pharmacy.place_id}`,
+          '_blank'
+        );
+      }
     } else {
       const pharmacy = data.data;
-      window.open(
-        `https://www.google.com/maps/search/?api=1&query=${pharmacy.latitude},${pharmacy.longitude}`,
-        '_blank'
-      );
+      if (isMobileDevice()) {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  
+        if (isIOS) {
+          // Open Apple Maps on iOS
+          const mapUri = `maps://maps.apple.com/?q=${pharmacy.latitude},${pharmacy.longitude}`;
+          window.location.href = mapUri;
+        } else {
+          // Open Google Maps on Android
+          const mapUri = `geo:${pharmacy.latitude},${pharmacy.longitude}`;
+          window.location.href = mapUri;
+        }
+      } else {
+        
+        // Open Google Maps in a new browser tab on desktop
+        window.open(
+          `https://www.google.com/maps/search/?api=1&query=${pharmacy.latitude},${pharmacy.longitude}`,
+          '_blank'
+        );
+      }
     }
   };
+  
 
   return (
     <div className="pharmacy-card p-5 w-full ">
