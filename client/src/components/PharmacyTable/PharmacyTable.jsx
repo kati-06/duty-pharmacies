@@ -23,7 +23,7 @@ function PharmacyTable({pharmacies, setPharmacies}) {
   //}, []);
 
   //if (!pharmacies) return <LoadingSpinner />;
-  if (!pharmacies) return <h1>Lutfen bir il secin</h1>;
+  if (!pharmacies) return <h1>Lütfen il seçiniz.</h1>;
 
   return (
     <div className="pharmacy-table w-full border p-5">
