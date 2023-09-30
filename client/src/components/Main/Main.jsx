@@ -85,6 +85,7 @@ function Main() {
         countyOptions={countyOptions}
         handleChangeCity={handleChangeCity}
         handleChangeCounty={handleChangeCounty}
+        selectedCity={selectedCity}
         selectedCounty={selectedCounty}
         handleSubmit={handleSubmitSearch}
         disabled={isFetcing}

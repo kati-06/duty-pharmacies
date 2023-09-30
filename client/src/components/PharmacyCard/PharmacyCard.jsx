@@ -1,3 +1,4 @@
+import {useEffect, useState} from 'react';
 import './PharmacyCard.style.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
@@ -8,10 +9,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {fetchPharmacy} from '../../services/api';
 
-function isMobileDevice() {
-  return window.innerWidth <= 768; // You can adjust the breakpoint as needed
-}
-
 function PharmacyCard({
   pharmacyName,
   city,
@@ -19,26 +16,33 @@ function PharmacyCard({
   address,
   phone1,
   pharmacyId,
+  setShowModal,
 }) {
+  const [isMobile, setIsMobile] = useState('');
+
+  useEffect(() => {
+    if (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Windows Phone/i.test(
+        navigator.userAgent
+      )
+    ) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  }, []);
+
   const handleClickShowOnMap = async () => {
-    const { data } = await fetchPharmacy(pharmacyId.toString());
-  
+    const {data} = await fetchPharmacy(pharmacyId.toString());
+
     if (data.isFound) {
       const pharmacy = data.data;
-      const { location } = pharmacy.geometry;
-  
-      if (isMobileDevice()) {
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-  
-        if (isIOS) {
-          // Open Apple Maps on iOS
-          const mapUri = `maps://maps.apple.com/?q=${location.lat},${location.lng}`;
-          window.location.href = mapUri;
-        } else {
-          // Open Google Maps on Android
-          const mapUri = `geo:${location.lat},${location.lng}`;
-          window.location.href = mapUri;
-        }
+      const {location} = pharmacy.geometry;
+      const encodedAddress = encodeURI(data.address);
+      setShowModal(true);
+      if (isMobile) {
+        const googleUri = `comgooglemaps://?q=${encodedAddress}`;
+        window.location.href = googleUri;
       } else {
         // Open Google Maps in a new browser tab on desktop
         window.open(
@@ -48,9 +52,9 @@ function PharmacyCard({
       }
     } else {
       const pharmacy = data.data;
-      if (isMobileDevice()) {
+      if (isMobile) {
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-  
+
         if (isIOS) {
           // Open Apple Maps on iOS
           const mapUri = `maps://maps.apple.com/?q=${pharmacy.latitude},${pharmacy.longitude}`;
@@ -61,7 +65,6 @@ function PharmacyCard({
           window.location.href = mapUri;
         }
       } else {
-        
         // Open Google Maps in a new browser tab on desktop
         window.open(
           `https://www.google.com/maps/search/?api=1&query=${pharmacy.latitude},${pharmacy.longitude}`,
@@ -70,7 +73,6 @@ function PharmacyCard({
       }
     }
   };
-  
 
   return (
     <div className="pharmacy-card p-5 w-full ">

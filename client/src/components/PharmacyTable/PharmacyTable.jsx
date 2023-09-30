@@ -1,10 +1,13 @@
-import React from 'react';
+import {useState} from 'react';
 import PharmacyCard from '../PharmacyCard/PharmacyCard';
 import './PharmacyTable.style.css';
 import {fetchPharmacies} from '../../services/api';
 import LoadingSpinner from '../LoadingSpinner';
+import MapSelectionModal from '../MapSelectionModal/MapSelectionModel';
 
 function PharmacyTable({pharmacies, setPharmacies}) {
+  const [showModal, setShowModal] = useState(false);
+
   // IGNORE IT FOR NOW
   //useEffect(() => {
   //  const fetchData = async () => {
@@ -23,10 +26,12 @@ function PharmacyTable({pharmacies, setPharmacies}) {
   //}, []);
 
   //if (!pharmacies) return <LoadingSpinner />;
-  if (!pharmacies) return <h1 style={{marginLeft: 5}}>Lütfen il seçiniz.</h1>;
+  if (!pharmacies)
+    return <h1 className="m-2 font-semibold">Lütfen il seçiniz.</h1>;
 
   return (
-    <div className="pharmacy-table w-full border p-5">
+    <div className="pharmacy-table  border p-5">
+      {showModal && <MapSelectionModal />}
       {pharmacies?.map((pharmacy) => (
         <PharmacyCard
           key={pharmacy._id}
@@ -36,6 +41,7 @@ function PharmacyTable({pharmacies, setPharmacies}) {
           address={pharmacy.address}
           phone1={pharmacy.phone}
           pharmacyId={pharmacy._id}
+          setShowModal={setShowModal}
         />
       ))}
     </div>

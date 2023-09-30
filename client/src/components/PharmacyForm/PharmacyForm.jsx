@@ -7,6 +7,7 @@ function PharmacyForm({
   handleSubmit,
   handleChangeCity,
   handleChangeCounty,
+  selectedCity,
   selectedCounty,
   disabled,
 }) {
@@ -44,10 +45,11 @@ function PharmacyForm({
             }),
           }}
         />
+
         <button
           onClick={handleSubmit}
           className="btn bg-green"
-          disabled={disabled}
+          disabled={disabled || !selectedCity ? true : false}
         >
           Ara
         </button>
