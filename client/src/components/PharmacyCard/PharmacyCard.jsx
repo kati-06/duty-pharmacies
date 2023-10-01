@@ -7,7 +7,6 @@ import {
   faMapLocationDot,
   faPhone,
 } from '@fortawesome/free-solid-svg-icons';
-import {fetchPharmacy} from '../../services/api';
 
 function PharmacyCard({
   pharmacyName,
@@ -17,63 +16,8 @@ function PharmacyCard({
   phone1,
   pharmacyId,
   setShowModal,
+  handleClickShowOnMap,
 }) {
-  const [isMobile, setIsMobile] = useState('');
-
-  useEffect(() => {
-    if (
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Windows Phone/i.test(
-        navigator.userAgent
-      )
-    ) {
-      setIsMobile(true);
-    } else {
-      setIsMobile(false);
-    }
-  }, []);
-
-  const handleClickShowOnMap = async () => {
-    const {data} = await fetchPharmacy(pharmacyId.toString());
-
-    if (data.isFound) {
-      const pharmacy = data.data;
-      const {location} = pharmacy.geometry;
-      const encodedAddress = encodeURI(data.address);
-      setShowModal(true);
-      if (isMobile) {
-        const googleUri = `comgooglemaps://?q=${encodedAddress}`;
-        window.location.href = googleUri;
-      } else {
-        // Open Google Maps in a new browser tab on desktop
-        window.open(
-          `https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}&query_place_id=${pharmacy.place_id}`,
-          '_blank'
-        );
-      }
-    } else {
-      const pharmacy = data.data;
-      if (isMobile) {
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-
-        if (isIOS) {
-          // Open Apple Maps on iOS
-          const mapUri = `maps://maps.apple.com/?q=${pharmacy.latitude},${pharmacy.longitude}`;
-          window.location.href = mapUri;
-        } else {
-          // Open Google Maps on Android
-          const mapUri = `geo:${pharmacy.latitude},${pharmacy.longitude}`;
-          window.location.href = mapUri;
-        }
-      } else {
-        // Open Google Maps in a new browser tab on desktop
-        window.open(
-          `https://www.google.com/maps/search/?api=1&query=${pharmacy.latitude},${pharmacy.longitude}`,
-          '_blank'
-        );
-      }
-    }
-  };
-
   return (
     <div className="pharmacy-card p-5 w-full ">
       <div className="flex items-start gap-2 mb-3">
@@ -112,7 +56,7 @@ function PharmacyCard({
 
         <li>
           <button
-            onClick={handleClickShowOnMap}
+            onClick={() => handleClickShowOnMap(pharmacyId)}
             className="btn bg-blue w-full p-2 "
           >
             Haritada Goster
