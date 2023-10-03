@@ -42,32 +42,33 @@ function PharmacyTable({pharmacies, setPharmacies}) {
     }
   }, []);
 
-  const handleClickShowOnMap = async (pharmacyId) => {
-    const {data} = await fetchPharmacy(pharmacyId.toString());
-    setPharmacyData(data);
-    const pharmacy = data.data;
-    if (data.isFound) {
-      if (isMobile) {
-        setShowModal(true);
-      } else {
-        const {location} = pharmacyData.data.geometry;
-        // Open Google Maps in a new browser tab on desktop
-        window.open(
-          `https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}&query_place_id=${pharmacy.place_id}`,
-          '_blank'
-        );
-      }
-    } else {
-      if (isMobile) {
-        setShowModal(true);
-      } else {
-        // Open Google Maps in a new browser tab on desktop
-        window.open(
-          `https://www.google.com/maps/search/?api=1&query=${pharmacy.latitude},${pharmacy.longitude}`,
-          '_blank'
-        );
-      }
+  useEffect(() => {
+    if (pharmacyData.data) {
+        if (isMobile) {
+            setShowModal(true);
+        } else {
+            const pharmacy = pharmacyData.data;
+            let url = '';
+
+            if (pharmacyData.isFound) {
+                const { location } = pharmacy.geometry;
+                url = `https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}&query_place_id=${pharmacy.place_id}`;
+            } else {
+                url = `https://www.google.com/maps/search/?api=1&query=${pharmacy.latitude},${pharmacy.longitude}`;
+            }
+
+            // Open Google Maps in a new browser tab on desktop
+            window.open(url, '_blank');
+        }
     }
+}, [pharmacyData, isMobile]);
+
+
+  const handleClickShowOnMap = async (pharmacyId) => {
+
+    const {data} = await fetchPharmacy(pharmacyId.toString());
+
+    setPharmacyData(data);
   };
 
   const handleSelectMap = (type = 'google') => {
