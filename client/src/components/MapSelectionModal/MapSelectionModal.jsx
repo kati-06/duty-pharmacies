@@ -18,9 +18,9 @@ function MapSelectionModal({handleSelectMap, setShowModal}) {
       <button onClick={() => handleSelectMap('apple')} className="button">
         Apple Maps
       </button>
-      <button onClick={() => handleSelectMap('yandex')} className="button">
+      {/*<button onClick={() => handleSelectMap('yandex')} className="button">
         Yandex Maps
-      </button>
+      </button>*/}
     </div>
   );
 }

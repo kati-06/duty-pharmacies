@@ -44,50 +44,56 @@ function PharmacyTable({pharmacies, setPharmacies}) {
 
   useEffect(() => {
     if (pharmacyData.data) {
-        if (isMobile) {
-            setShowModal(true);
+      if (isMobile) {
+        setShowModal(true);
+      } else {
+        const pharmacy = pharmacyData.data;
+        let url = '';
+
+        if (pharmacyData.isFound) {
+          const {location} = pharmacy.geometry;
+          url = `https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}&query_place_id=${pharmacy.place_id}`;
         } else {
-            const pharmacy = pharmacyData.data;
-            let url = '';
-
-            if (pharmacyData.isFound) {
-                const { location } = pharmacy.geometry;
-                url = `https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}&query_place_id=${pharmacy.place_id}`;
-            } else {
-                url = `https://www.google.com/maps/search/?api=1&query=${pharmacy.latitude},${pharmacy.longitude}`;
-            }
-
-            // Open Google Maps in a new browser tab on desktop
-            window.open(url, '_blank');
+          url = `https://www.google.com/maps/search/?api=1&query=${pharmacy.latitude},${pharmacy.longitude}`;
         }
-    }
-}, [pharmacyData, isMobile]);
 
+        // Open Google Maps in a new browser tab on desktop
+        window.open(url, '_blank');
+      }
+    }
+  }, [pharmacyData, isMobile]);
 
   const handleClickShowOnMap = async (pharmacyId) => {
-
     const {data} = await fetchPharmacy(pharmacyId.toString());
-
+    console.log(data);
+    console.log(data);
     setPharmacyData(data);
   };
 
   const handleSelectMap = (type = 'google') => {
     let uri = '';
+
     if (type === 'google') {
       if (pharmacyData.isFound) {
-        const encodedAddress = encodeURI(pharmacyData.data.address);
-        uri = `comgooglemaps://?q=${encodedAddress}`;
+        //const encodedAddress = encodeURI(pharmacyData.data.formatted_address);
+        const encodedQuery = encodeURIComponent(
+          pharmacyData.data.name + ' ' + pharmacyData.data.formatted_address
+        );
+        uri = `comgooglemaps://?q=${encodedQuery}`;
       } else {
         uri = `comgooglemaps://?q=${pharmacyData.data.lat},${pharmacyData.data.lng}`;
       }
     } else if (type === 'apple') {
       if (pharmacyData.isFound) {
-        const encodedAddress = encodeURI(pharmacyData.data.address);
-        uri = `maps://maps.apple.com/?address=${encodedAddress}`;
+        const {lat, lng} = pharmacyData.data.geometry.location;
+        //const encodedAddress = encodeURI(pharmacyData.data.formatted_address);
+        const encodedName = encodeURI(pharmacyData.data.name);
+
+        uri = `maps://maps.apple.com/?daddr=${lat},${lng}&dname=${encodedName}`;
       } else {
-        uri = `maps://maps.apple.com/?q=${pharmacyData.data.lat},${pharmacyData.data.lng}`;
+        uri = `maps://maps.apple.com/?q=${pharmacyData.data.latitude},${pharmacyData.data.longitude}`;
       }
-    } else if (type === 'yandex') {
+      //} else if (type === 'yandex') {
     }
 
     window.location.href = uri;
