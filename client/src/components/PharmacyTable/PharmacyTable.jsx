@@ -26,7 +26,7 @@ function PharmacyTable({pharmacies, setPharmacies}) {
   //  };
 
   //  fetchData();
-  //}, []);
+  //}, [setPharmacies]);
 
   //if (!pharmacies) return <LoadingSpinner />;
 
@@ -65,8 +65,6 @@ function PharmacyTable({pharmacies, setPharmacies}) {
 
   const handleClickShowOnMap = async (pharmacyId) => {
     const {data} = await fetchPharmacy(pharmacyId.toString());
-    console.log(data);
-    console.log(data);
     setPharmacyData(data);
   };
 
@@ -100,7 +98,12 @@ function PharmacyTable({pharmacies, setPharmacies}) {
   };
 
   if (!pharmacies)
-    return <h1 className="m-2 font-semibold">Lütfen il seçiniz.</h1>;
+    return (
+      <div>
+        <h1 className="m-2 font-semibold">Lütfen il seçiniz.</h1>
+        <p>{new Date().toLocaleDateString('tr-TR')}</p>
+      </div>
+    );
 
   return (
     <div className="pharmacy-table  border p-5">

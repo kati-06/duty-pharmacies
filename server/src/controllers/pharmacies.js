@@ -1,18 +1,35 @@
 import httpStatus from 'http-status';
 import Pharmacy from '../models/Pharmacy.js';
 import axios from 'axios';
+import data from '../data/data.json' assert {type: 'json'};
 
 export const getAllPharmacies = async (req, res, next) => {
-  let {city, county} = req.query;
+  try {
+    let {city, county} = req.query;
+    city = city || '';
+    county = county || '';
+    let cityData = {};
+    if (city) {
+      cityData = data.find((d) => d.citySlug === city);
+      city = cityData.cityName;
+    }
+    if (county) {
+      county = cityData.counties.find(
+        (c) => c.countySlug === county
+      ).countyName;
+      console.log(county + ' ********');
+    }
 
-  city = city || '';
-  county = county || '';
+    const pharmacies = await Pharmacy.find({
+      city: {$regex: city, $options: 'i'},
+      county: {$regex: county, $options: 'i'},
+    });
 
-  const pharmacies = await Pharmacy.find({
-    city: {$regex: city, $options: 'i'},
-    county: {$regex: county, $options: 'i'},
-  });
-  res.status(httpStatus.OK).json(pharmacies);
+    res.status(httpStatus.OK).json(pharmacies);
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
 };
 
 export const getPharmacy = async (req, res, next) => {

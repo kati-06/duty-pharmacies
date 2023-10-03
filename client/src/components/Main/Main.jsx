@@ -1,16 +1,18 @@
 import {useEffect, useState} from 'react';
 import PharmacyTable from '../PharmacyTable/PharmacyTable';
-import cities from '../../data/cities';
 import data from '../../data/data.json';
 import {fetchPharmacies} from '../../services/api';
 import './Main.style.css';
 import PharmacyForm from '../PharmacyForm/PharmacyForm';
+import {useNavigate, useParams} from 'react-router-dom';
 
 function Main() {
+  const navigate = useNavigate();
+  const {city: cityParam, county: countyParam} = useParams();
   const [pharmacies, setPharmacies] = useState(null);
   const [countyOptions, setCountyOptions] = useState([]);
-  const [selectedCity, setSelectedCity] = useState('');
-  const [selectedCounty, setSelectedCounty] = useState('');
+  const [selectedCity, setSelectedCity] = useState(cityParam || '');
+  const [selectedCounty, setSelectedCounty] = useState(countyParam || '');
   const [isFetcing, setIsFetcing] = useState(false);
 
   // get user location - IGNORE IT FOR NOW
@@ -34,24 +36,44 @@ function Main() {
     }
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetchPharmacies({
+          city: cityParam,
+          county: countyParam,
+        });
+        setPharmacies(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (cityParam) {
+      setSelectedCity(cityParam);
+      setSelectedCounty(countyParam);
+      fetchData();
+    }
+  }, [cityParam, countyParam]);
+
   // get cities from json and map for react-select component
-  const cityOptions = cities.map((city) => {
+  const cityOptions = data.map((city) => {
     return {value: city.citySlug, label: city.cityName};
   });
 
   const handleChangeCity = (selectedOption) => {
-    setSelectedCity(selectedOption?.label || '');
+    setSelectedCity(selectedOption?.value || '');
     setSelectedCounty('');
 
-    const countiesData = data;
-
     if (selectedOption?.value) {
-      const counties = countiesData[selectedOption?.value].counties;
+      const counties = data.find(
+        (d) => d.citySlug === selectedOption?.value
+      ).counties;
 
       setCountyOptions(
         counties.map((county) => {
           return {
-            value: county.countyName,
+            value: county.countySlug,
             label: county.countyName,
           };
         })
@@ -66,11 +88,20 @@ function Main() {
   const handleSubmitSearch = async () => {
     try {
       setIsFetcing(true);
+      console.log(selectedCity, selectedCounty);
       const fetchedPharmacies = await fetchPharmacies({
-        city: selectedCity,
-        county: selectedCounty,
+        city: selectedCity.toLowerCase(),
+        county: selectedCounty.toLowerCase(),
       });
       setPharmacies(fetchedPharmacies);
+
+      if (selectedCity && selectedCounty) {
+        navigate(
+          `/${selectedCity.toLowerCase()}/${selectedCounty.toLowerCase()}`
+        );
+      } else if (selectedCity) {
+        navigate(`/${selectedCity.toLowerCase()}`);
+      }
     } catch (error) {
       console.log(error);
     } finally {
