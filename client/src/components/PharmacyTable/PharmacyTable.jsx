@@ -99,9 +99,22 @@ function PharmacyTable({pharmacies, setPharmacies}) {
 
   if (!pharmacies)
     return (
-      <div>
-        <h1 className="m-2 font-semibold">Lütfen il seçiniz.</h1>
-        <p>{new Date().toLocaleDateString('tr-TR')}</p>
+      <div className="ms-2 p-2 space-y-5">
+        <h1 className="mb-3 font-semibold">
+          Eczaneleri listelemek için il seçiniz.
+        </h1>
+        <p>
+          <strong>Türkiye genelinde 7/24</strong> nöbetçi eczanelerin telefonuna
+          ve adresine kolayca ulaşabilirsiniz.
+        </p>
+        <p>
+          <strong>Telefon numaralarına</strong> tıklayarak eczaneleri
+          arayabilirsiniz.
+        </p>
+        <p>
+          <strong>Haritada göster </strong> tıklayarak ve apple haritaları
+          kullanabilirsiniz.
+        </p>
       </div>
     );
 

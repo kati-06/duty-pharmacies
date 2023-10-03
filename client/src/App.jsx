@@ -21,8 +21,10 @@ function App() {
           </Routes>
         </BrowserRouter>
       </main>
-
-      {/*footer will be added*/}
+      <footer className="text-sm text-center font-bold">
+        <div className="border my-5"></div>
+        <div>© 2023 - nobetci-eczaneler.com</div>
+      </footer>
     </div>
   );
 }

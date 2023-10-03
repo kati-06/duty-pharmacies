@@ -52,6 +52,15 @@ function Main() {
     if (cityParam) {
       setSelectedCity(cityParam);
       setSelectedCounty(countyParam);
+      const counties = data.find((d) => d.citySlug === cityParam).counties;
+      setCountyOptions(
+        counties.map((county) => {
+          return {
+            value: county.countySlug,
+            label: county.countyName,
+          };
+        })
+      );
       fetchData();
     }
   }, [cityParam, countyParam]);
