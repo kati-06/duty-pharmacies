@@ -18,7 +18,24 @@ import notFoundMiddleware from './middleware/notFound.js';
 const app = express();
 
 // config
-app.use(express.static(path.resolve(__dirname, './client/build')));
+app.use(function (req, res, next) {
+  res.set('x-timestamp', Date.now());
+  res.set('x-powered-by', 'cyclic.sh');
+  console.log(
+    `[${new Date().toISOString()}] ${req.ip} ${req.method} ${req.path}`
+  );
+  next();
+});
+
+var options = {
+  dotfiles: 'ignore',
+  etag: false,
+  extensions: ['htm', 'html', 'css', 'js', 'ico', 'jpg', 'jpeg', 'png', 'svg'],
+  index: ['index.html'],
+  maxAge: '1m',
+  redirect: false,
+};
+app.use(express.static(path.resolve(__dirname, './client/build'), options));
 app.use(helmet());
 app.use(express.json());
 app.use(cors());
@@ -35,8 +52,22 @@ app.use('/pharmacies', pharmaciesRouter);
 
 // serving the frontend
 
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
+//app.get('*', (req, res) => {
+//  res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
+//});
+app.use('*', (req, res) => {
+  res
+    .json({
+      at: new Date().toISOString(),
+      method: req.method,
+      hostname: req.hostname,
+      ip: req.ip,
+      query: req.query,
+      headers: req.headers,
+      cookies: req.cookies,
+      params: req.params,
+    })
+    .end();
 });
 
 app.use(errorHandlerMiddleware);
