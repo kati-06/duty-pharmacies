@@ -46,12 +46,8 @@ app.use('/pharmacies', pharmaciesRouter);
 // serving the frontend
 
 app.get('*', (req, res) => {
-  res.send(path.join(__dirname, 'client/build'));
-  //res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
-//app.get('*', (req, res) => {
-//  res.sendFile(path.resolve(__dirname, 'client/build', './index.html'));
-//});
 
 app.use(errorHandlerMiddleware);
 app.use(notFoundMiddleware);
