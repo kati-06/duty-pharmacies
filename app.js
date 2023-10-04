@@ -29,16 +29,23 @@ import pharmaciesRouter from './routes/pharmacies.js';
 // serving frontend
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 
-app.get('*', function (req, res) {
-  const index = path.join(__dirname, 'build', 'index.html');
-  res.sendFile(index);
-});
-
 // routes
 app.use('/api/v1/pharmacies', pharmaciesRouter);
 
 app.get('/api/v1', (req, res) => {
   res.send('Welcome !');
+});
+
+app.get('*', (req, res) => {
+  const indexPath = path.join(__dirname, 'client', 'build', 'index.html');
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      res.status(500).send({
+        err,
+        path: indexPath,
+      });
+    }
+  });
 });
 
 app.use(errorHandlerMiddleware);
