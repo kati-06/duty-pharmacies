@@ -1,5 +1,10 @@
 import dotenv from 'dotenv';
 dotenv.config();
+import path from 'path';
+import {fileURLToPath} from 'url';
+import {dirname} from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 import express from 'express';
 import helmet from 'helmet';
@@ -17,6 +22,18 @@ const app = express();
 app.use(helmet());
 app.use(express.json());
 app.use(cors());
+
+// serving frontend
+app.use(express.static(path.join(__dirname, './client/build')));
+
+//app.get('*', (req, res) => {
+//  res.sendFile(
+//    path.join(__dirname, './client/build/index.html'),
+//    function (err) {
+//      res.status(500).send(err);
+//    }
+//  );
+//});
 
 // routers
 import pharmaciesRouter from './routes/pharmacies.js';
