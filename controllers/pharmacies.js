@@ -1,7 +1,10 @@
 import httpStatus from 'http-status';
 import Pharmacy from '../models/Pharmacy.js';
 import axios from 'axios';
-import data from '../data/data.json' assert {type: 'json'};
+//import data from '../data/data.json' assert {type: 'json'};
+import {createRequire} from 'module';
+const require = createRequire(import.meta.url);
+const data = require('../data/data.json');
 
 export const getAllPharmacies = async (req, res, next) => {
   try {
