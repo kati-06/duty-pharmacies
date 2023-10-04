@@ -37,12 +37,12 @@ app.get('/api/v1', (req, res) => {
 app.use(express.static(path.join(__dirname, './client/build')));
 
 app.get('*', (req, res) => {
-  res.sendFile(
-    path.join(__dirname, './client/build/index.html'),
-    function (err) {
+  const indexPath = path.join(__dirname, 'client', 'build', 'index.html');
+  res.sendFile(indexPath, (err) => {
+    if (err) {
       res.status(500).send(err);
     }
-  );
+  });
 });
 
 app.use(errorHandlerMiddleware);
