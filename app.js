@@ -29,9 +29,9 @@ import pharmaciesRouter from './routes/pharmacies.js';
 // routes
 app.use('/pharmacies', pharmaciesRouter);
 
-app.get('', (req, res) => {
-  res.send('Welcome !');
-});
+//app.get('', (req, res) => {
+//  res.send('Welcome !');
+//});
 
 // serving the frontend
 
