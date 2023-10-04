@@ -5,12 +5,8 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "node src/app.js",
-    "dev": "nodemon src/app.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/atilagulers/duty-pharmacies/server"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "keywords": [
     "duty",
