@@ -46,7 +46,12 @@ app.use('/pharmacies', pharmaciesRouter);
 // serving the frontend
 
 app.get('*', (req, res) => {
-  res.sendFile('index.html', {root: '/client/build'});
+  res.sendFile(
+    path.join(__dirname, 'client/build', 'index.html'),
+    function (err) {
+      res.send(err);
+    }
+  );
   //res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
