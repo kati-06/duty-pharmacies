@@ -26,7 +26,9 @@ var options = {
   maxAge: '1m',
   redirect: false,
 };
-app.use(express.static(path.resolve(__dirname, './client/build'), options));
+
+//app.use(express.static(path.resolve(__dirname, './client/build'), options));
+app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(helmet());
 app.use(express.json());
 app.use(cors());
@@ -44,8 +46,11 @@ app.use('/pharmacies', pharmaciesRouter);
 // serving the frontend
 
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'client/build', './index.html'));
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
+//app.get('*', (req, res) => {
+//  res.sendFile(path.resolve(__dirname, 'client/build', './index.html'));
+//});
 
 app.use(errorHandlerMiddleware);
 app.use(notFoundMiddleware);
