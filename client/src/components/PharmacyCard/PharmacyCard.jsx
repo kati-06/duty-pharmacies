@@ -15,6 +15,7 @@ function PharmacyCard({
   address,
   phone1,
   pharmacyId,
+  distance,
   setShowModal,
   handleClickShowOnMap,
 }) {
@@ -53,7 +54,11 @@ function PharmacyCard({
             {phone1}
           </a>
         </div>
-
+        <div className="flex items-start  gap-2 mt-2">
+        <a>{distance && (
+            <b>{`Mesafe: ${distance.toFixed(2)} km`}</b>
+          )}</a>
+        </div>
         <li>
           <button
             onClick={() => handleClickShowOnMap(pharmacyId)}

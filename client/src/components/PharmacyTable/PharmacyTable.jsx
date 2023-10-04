@@ -139,6 +139,7 @@ function PharmacyTable({pharmacies, setPharmacies}) {
           address={pharmacy.address}
           phone1={pharmacy.phone}
           pharmacyId={pharmacy._id}
+          distance={pharmacy.distance}
           setShowModal={setShowModal}
           handleClickShowOnMap={handleClickShowOnMap}
         />
