@@ -17,7 +17,6 @@ export const getAllPharmacies = async (req, res, next) => {
       county = cityData.counties.find(
         (c) => c.countySlug === county
       ).countyName;
-      console.log(county + ' ********');
     }
 
     const pharmacies = await Pharmacy.find({
@@ -38,23 +37,24 @@ export const getPharmacy = async (req, res, next) => {
   const pharmacy = await Pharmacy.findById(pharmacyId);
 
   const encodedName = encodeURIComponent(pharmacy.pharmacyName);
+  res.status(httpStatus.OK).json({data: pharmacy, isFound: false});
   //const encodedAddress = encodeURIComponent(closestPharmacy.address);
 
-  const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodedName}&radius=2000&type=pharmacy&key=${process.env.GOOGLE_PLACES_KEY}`;
+  //const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${pharmacy.latitude},${pharmacy.longitude}&radius=1000&keyword=${encodedName}&type=pharmacy&key=${process.env.GOOGLE_PLACES_KEY}`;
 
   // other url test to accuracy DON'T DELETE for now
   // const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodedName}&location=${pharmacy.latitude},${pharmacy.longitude}&radius=2000&type=pharmacy&key=${process.env.GOOGLE_PLACES_API}`;
 
-  const places = await axios.get(url);
+  //const places = await axios.get(url);
 
-  const closestPlace = places.data.results[0];
+  //const closestPlace = places.data.results[0];
 
   // if place is found on google places send the pharmacy from google's data
-  if (closestPlace) {
-    res.status(httpStatus.OK).json({data: closestPlace, isFound: true});
-  }
-  // if not send pharmacy from our DB
-  else {
-    res.status(httpStatus.OK).json({data: pharmacy, isFound: false});
-  }
+  //if (closestPlace) {
+  //  res.status(httpStatus.OK).json({data: closestPlace, isFound: true});
+  //}
+  //// if not send pharmacy from our DB
+  //else {
+  //  res.status(httpStatus.OK).json({data: pharmacy, isFound: false});
+  //}
 };

@@ -65,6 +65,7 @@ function PharmacyTable({pharmacies, setPharmacies}) {
 
   const handleClickShowOnMap = async (pharmacyId) => {
     const {data} = await fetchPharmacy(pharmacyId.toString());
+
     setPharmacyData(data);
   };
 
@@ -97,7 +98,7 @@ function PharmacyTable({pharmacies, setPharmacies}) {
     window.location.href = uri;
   };
 
-  if (!pharmacies)
+  if (pharmacies.length === 0)
     return (
       <div className="ms-2 p-2 space-y-5">
         <h1 className="mb-3 font-semibold">
@@ -144,9 +145,15 @@ function PharmacyTable({pharmacies, setPharmacies}) {
           handleClickShowOnMap={handleClickShowOnMap}
         />
       ))}
+      <div>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4034067416053884"
+          crossOrigin="anonymous"
+        ></script>
+      </div>
     </div>
   );
 }
 
 export default PharmacyTable;
-//flex flex-col justify-center items-center

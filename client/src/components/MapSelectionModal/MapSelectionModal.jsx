@@ -18,6 +18,15 @@ function MapSelectionModal({handleSelectMap, setShowModal}) {
       <button onClick={() => handleSelectMap('apple')} className="button">
         Apple Maps
       </button>
+
+      <div>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4034067416053884"
+          crossOrigin="anonymous"
+        ></script>
+      </div>
+
       {/*<button onClick={() => handleSelectMap('yandex')} className="button">
         Yandex Maps
       </button>*/}

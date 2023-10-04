@@ -4,7 +4,7 @@ import axios from 'axios';
 
 // update pharmacies
 export const updatePharmacies = () => {
-  schedule.scheduleJob('5 10 * * *', async function () {
+  schedule.scheduleJob('5 10,12,15,17,20 * * *', async function () {
     try {
       const {data} = await axios.get(`${process.env.PHARMACY_API}/getAll`, {
         headers: {
