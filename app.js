@@ -2,8 +2,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 import {fileURLToPath} from 'url';
 import path, {dirname} from 'path';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 import express from 'express';
 import helmet from 'helmet';
@@ -27,6 +25,8 @@ var options = {
   redirect: false,
 };
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 //app.use(express.static(path.resolve(__dirname, './client/build'), options));
 app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(helmet());
@@ -46,7 +46,7 @@ app.use('/pharmacies', pharmaciesRouter);
 // serving the frontend
 
 app.get('*', (req, res) => {
-  res.send(path.join(__dirname, 'client/build', 'index.html'));
+  res.send(path.join(__dirname, 'client/build'));
   //res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 //app.get('*', (req, res) => {
