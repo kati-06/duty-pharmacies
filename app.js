@@ -27,20 +27,11 @@ app.use(cors());
 import pharmaciesRouter from './routes/pharmacies.js';
 
 // serving frontend
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'client', 'build')));
 
-path.join(__dirname, 'client/build');
-app.get('*', (req, res) => {
-  const indexPath = path.join(__dirname, 'client', 'build', 'index.html');
-  res.sendFile(indexPath, (err) => {
-    if (err) {
-      res.status(500).send({
-        err,
-        path1: `${path.join(__dirname, 'client/build')}`,
-        path2: `${path.join(__dirname, 'client', 'build', 'index.html')}`,
-      });
-    }
-  });
+app.get('*', function (req, res) {
+  const index = path.join(__dirname, 'build', 'index.html');
+  res.sendFile(index);
 });
 
 // routes
