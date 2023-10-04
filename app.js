@@ -18,7 +18,7 @@ import notFoundMiddleware from './middleware/notFound.js';
 const app = express();
 
 // config
-app.use(express.static(path.join(__dirname, './client/build')));
+app.use(express.static(path.resolve(__dirname, './client/build')));
 app.use(helmet());
 app.use(express.json());
 app.use(cors());
@@ -36,7 +36,7 @@ app.use('/pharmacies', pharmaciesRouter);
 // serving the frontend
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './client/build/index.html'));
+  res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
 });
 
 app.use(errorHandlerMiddleware);
