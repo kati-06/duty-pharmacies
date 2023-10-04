@@ -23,22 +23,6 @@ app.use(helmet());
 app.use(express.json());
 app.use(cors());
 
-// serving frontend
-app.use(express.static(path.join(__dirname, './client/build')));
-
-res.sendFile(path.join(__dirname, './client/build/index.html'), function (err) {
-  if (err) {
-    console.error(err);
-    res.status(500).send(err);
-  }
-});
-res.sendFile(path.join(__dirname, './client/build/index.html'), function (err) {
-  if (err) {
-    console.error(err);
-    res.status(500).send(err);
-  }
-});
-
 // routers
 import pharmaciesRouter from './routes/pharmacies.js';
 
@@ -47,6 +31,13 @@ app.use('/api/v1/pharmacies', pharmaciesRouter);
 
 app.get('/api/v1', (req, res) => {
   res.send('Welcome !');
+});
+
+// serving frontend
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 });
 
 app.use(errorHandlerMiddleware);

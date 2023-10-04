@@ -23,7 +23,6 @@ export const getAllPharmacies = async (req, res, next) => {
       city: {$regex: city, $options: 'i'},
       county: {$regex: county, $options: 'i'},
     });
-
     res.status(httpStatus.OK).json(pharmacies);
   } catch (error) {
     console.log(error);
