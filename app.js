@@ -34,13 +34,20 @@ app.get('/api/v1', (req, res) => {
 });
 
 // serving frontend
-app.use(express.static(path.join(__dirname, './client/build')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
+path.join(__dirname, 'client/build');
 app.get('*', (req, res) => {
   const indexPath = path.join(__dirname, 'client', 'build', 'index.html');
   res.sendFile(indexPath, (err) => {
     if (err) {
-      res.status(500).send(err);
+      res
+        .status(500)
+        .send({
+          err,
+          path1: `${path.join(__dirname, 'client/build')}`,
+          path2: `${path.join(__dirname, 'client', 'build', 'index.html')}`,
+        });
     }
   });
 });
