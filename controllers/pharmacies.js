@@ -9,7 +9,7 @@ const data = require('../data/data.json');
 export const getAllPharmacies = async (req, res, next) => {
   try {
     let {city, county} = req.query;
-    console.log(city, county);
+
     city = city || '';
     county = county || '';
     let cityData = {};
@@ -22,7 +22,7 @@ export const getAllPharmacies = async (req, res, next) => {
         (c) => c.countySlug === county
       ).countyName;
     }
-    console.log(city, county);
+
     const pharmacies = await Pharmacy.find({
       city: {$regex: city, $options: 'i'},
       county: {$regex: county, $options: 'i'},

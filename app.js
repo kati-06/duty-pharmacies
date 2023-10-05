@@ -15,16 +15,6 @@ import notFoundMiddleware from './middleware/notFound.js';
 
 const app = express();
 
-// config
-var options = {
-  dotfiles: 'ignore',
-  etag: false,
-  extensions: ['htm', 'html', 'css', 'js', 'ico', 'jpg', 'jpeg', 'png', 'svg'],
-  index: ['index.html'],
-  maxAge: '1m',
-  redirect: false,
-};
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 //app.use(express.static(path.resolve(__dirname, './client/build'), options));
