@@ -29,7 +29,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 //app.use(express.static(path.resolve(__dirname, './client/build'), options));
 app.use(express.static(path.join(__dirname, 'client/build')));
-app.use(express.static(path.join(__dirname, 'client/public')));
 app.use(helmet());
 app.use(express.json());
 app.use(cors());
