@@ -61,10 +61,9 @@ function PharmacyForm({
             noOptionsMessage={() => 'Lütfen il seçiniz'}
             onChange={handleChangeCounty}
             isClearable={true}
-            value={
-              countyOptions.find((option) => option.value === selectedCounty) ||
-              ''
-            }
+            value={countyOptions.find(
+              (option) => option.value === selectedCounty
+            )}
             styles={{
               menu: (provided) => ({
                 ...provided,

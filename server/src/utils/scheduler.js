@@ -22,7 +22,7 @@ export const updatePharmacies = () => {
         phone: pharmacy.Telefon,
         phone2: pharmacy.Telefon2,
         city: pharmacy.Sehir,
-        county: pharmacy.ilce.replace(/i̇/g, 'i'),
+        county: pharmacy.ilce,
         latitude: pharmacy.latitude,
         longitude: pharmacy.longitude,
       }));

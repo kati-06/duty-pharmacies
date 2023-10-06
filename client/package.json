@@ -2,7 +2,6 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "homepage": "./",
   "main": "src/index.jsx",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",

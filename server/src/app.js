@@ -1,7 +1,5 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import {fileURLToPath} from 'url';
-import path, {dirname} from 'path';
 
 import express from 'express';
 import helmet from 'helmet';
@@ -15,10 +13,7 @@ import notFoundMiddleware from './middleware/notFound.js';
 
 const app = express();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-//app.use(express.static(path.resolve(__dirname, './client/build'), options));
-app.use(express.static(path.join(__dirname, 'client/build')));
+// config
 app.use(helmet());
 app.use(express.json());
 app.use(cors());
@@ -27,22 +22,10 @@ app.use(cors());
 import pharmaciesRouter from './routes/pharmacies.js';
 
 // routes
-app.use('/pharmacies', pharmaciesRouter);
+app.use('/api/v1/pharmacies', pharmaciesRouter);
 
-//app.get('', (req, res) => {
-//  res.send('Welcome !');
-//});
-
-// serving the frontend
-
-app.get('*', (req, res) => {
-  res.sendFile(
-    path.join(__dirname, 'client/build', 'index.html'),
-    function (err) {
-      res.status(500).send(err);
-    }
-  );
-  //res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+app.get('/api/v1', (req, res) => {
+  res.send('Welcome !');
 });
 
 app.use(errorHandlerMiddleware);
